@@ -5,6 +5,10 @@ metta = MeTTa()
 with open("families.metta") as db:
     metta.run(db.read())
 
+
+output = metta.run("!(match &self (Person Lisa $age $gender) ($age $gender))")
+print(output[0])
+
 output1 = metta.run("!(getBrother Lisa)")
 output2 = metta.run("!(getBrother Lily)")
 print(output1[0])
