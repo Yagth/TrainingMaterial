@@ -196,3 +196,6 @@
 ;; !(sum (1 2 3 4 5))
 ;; !(sum (1 2 3 4 5) 0)
 
+;; Today's challenges:
+;; Implement product function that takes a list and returns the product of all elemtns in the list.
+;; Implement both sum and the above product function without using car-atom, cdr-atom and decons-atom.
