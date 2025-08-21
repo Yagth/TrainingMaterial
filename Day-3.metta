@@ -199,3 +199,75 @@
 ;; Today's challenges:
 ;; Implement product function that takes a list and returns the product of all elemtns in the list.
 ;; Implement both sum and the above product function without using car-atom, cdr-atom and decons-atom.
+
+; (= (product $list)
+;    (if (== $list ())
+;        1
+;        (let*
+;           (
+;             ($first (car-atom $list)) ;; (2) -> 2
+;             ($rest (cdr-atom $list)) ;; (2) -> ()
+;             ($product (product $rest)) ;; 
+;           )
+;           (* $product $first)
+;        )
+;    )
+; )
+
+;; !(product (1 2 3 6 7))
+;; !(product (1 2 3 6 7))
+
+; (= (sum $list)
+;    (if (== $list ())
+;        0
+;        (let*
+;           (
+;             ($head (car-atom $list))
+;             ($tail (cdr-atom $list))
+;           )
+;           (+ $head (sum $tail))
+;        )
+;    )
+; )
+
+;; (1 2 3), 0 -> 5 + 1 => 6
+;; (1 2 3), 0 -> (1 2 3), 1 => 3 + 2 => 5
+;; (1 2 3), 1 -> (1 2 3), 2 => 0 + 3 => 3
+;; (1 2 3), 2 -> (1 2 3), 3 => 0
+
+(= (sum $list) (sum $list 0))
+(= (sum $list $n)
+   (if (>= $n (size-atom $list))
+       0
+       (let*
+          (
+            ($nth (index-atom $list $n)) ;; (1 2 3), 0 -> 1
+            ;; ($nextElementIdx (+ $n 1))
+            (($sumRest $prodRest) (sum $list (+ $n 1))) ;; (1 2 3), 1 -> 2
+          )
+          ((+ $sumRest $nth) (* $prodRest $nth))
+       )
+   )
+)
+
+(= (product $list) (product $list 0))
+(= (product $list $n)
+   (if (>= $n (size-atom $list))
+       1
+       (let*
+          (
+            ($nth (index-atom $list $n)) ;; (1 2 3), 0 -> 1
+            ;; ($nextElementIdx (+ $n 1))
+            ($prodRest (product $list (+ $n 1))) ;; (1 2 3), 1 -> 2
+          )
+          (* $prodRest $nth)
+       )
+   )
+)
+
+
+;; !(sum (1 2 3) 10)
+;; !(sum (A B C D))
+;; !(product (1 2 3 4))
+
+
